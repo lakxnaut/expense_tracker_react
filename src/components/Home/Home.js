@@ -1,8 +1,15 @@
 import React from 'react'
 import classes from './Home.module.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const Home = () => {
+    const navigate = useNavigate()
+
+    function logOutHandler() {
+        localStorage.removeItem('token')
+        navigate('/auth')
+
+    }
     return (
         <div className={classes.home}>
             <div className={classes.header}>
@@ -14,6 +21,7 @@ const Home = () => {
 
                     </p>
                     </NavLink>
+                    <button onClick={logOutHandler}>Logout</button>
                 </div>
             </div>
         </div>
