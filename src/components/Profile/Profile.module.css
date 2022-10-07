@@ -1,0 +1,27 @@
+.profile {
+  text-align: center;
+}
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+}
+
+.cancelButton {
+}
+
+.profileinfoContainer {
+  justify-content: center;
+  gap: 30px;
+  display: flex;
+}
+
+.profileinfo {
+  justify-content: center;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+}
+.updatebutton {
+}
