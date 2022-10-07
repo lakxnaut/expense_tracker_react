@@ -17,10 +17,17 @@ const AuthPage = () => {
     async function saveToken(data) {
         const resp = await data.json()
         const token = resp.idToken;
+
+        console.log(token);
         localStorage.setItem('token', token)
+        console.log(token);
 
         navigate('/')
     }
+
+
+
+
 
 
     async function submitForm(e) {

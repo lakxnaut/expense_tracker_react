@@ -1,0 +1,17 @@
+.home {
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profileclickContainer {
+  border-radius: 20px;
+  background-color: grey;
+  display: flex;
+  padding: 10px 120px;
+}
+
+.link {
+  color: blue;
+}
