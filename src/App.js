@@ -1,11 +1,21 @@
-import React from 'react'
-import Signup from './components/Signup/Signup'
+import React, { Fragment } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './components/Home/Home'
+import AuthPage from './components/Signup/AuthPage'
+
 
 const App = () => {
   return (
-    <div>
-      <Signup />
-    </div>
+    <Fragment>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/auth' element={<AuthPage />} />
+
+        </Routes>
+
+      </BrowserRouter>
+    </Fragment>
   )
 }
 
