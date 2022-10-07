@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import classes from './Profile.module.css'
 import { AiFillGithub } from "react-icons/ai";
 import { BsGlobe } from "react-icons/bs";
@@ -6,6 +6,42 @@ import { BsGlobe } from "react-icons/bs";
 const Profile = () => {
     const nameRef = useRef();
     const profileRef = useRef();
+
+    useEffect(() => {
+
+        getProfiledata()
+
+
+    }, [nameRef, profileRef])
+
+
+
+
+
+    async function getProfiledata() {
+        const url = 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBVAE7aUSl9yyrZqGn-MO-JWRkJvemcR3g'
+
+        const resp = await fetch(url, {
+            method: 'POST',
+            headers: {
+
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idToken: localStorage.getItem('token')
+
+            })
+        })
+
+        const data = await resp.json();
+
+        console.log(data.users[0].displayName);
+
+        nameRef.current.value = data.users[0].displayName;
+        profileRef.current.value = data.users[0].photoUrl;
+
+
+    }
 
     async function onUpdate() {
         const name = nameRef.current.value;
