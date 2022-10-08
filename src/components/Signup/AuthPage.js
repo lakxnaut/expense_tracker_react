@@ -31,7 +31,7 @@ const AuthPage = () => {
 
     async function confirmEmail() {
 
-        const myurl = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBVAE7aUSl9yyrZqGn-MO-JWRkJvemcR3g'
+        const myurl = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyA2aEc-PCnPRnGxUhQ9Jsdx2azB6BHgOQc'
         const resp = await fetch(myurl, {
             method: 'POST',
             headers: {
@@ -75,7 +75,7 @@ const AuthPage = () => {
         const password = passwordRef.current.value
         let url;
         if (isSignupScreen && (password === confirmPasswordRef.current.value)) {
-            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBVAE7aUSl9yyrZqGn-MO-JWRkJvemcR3g'
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA2aEc-PCnPRnGxUhQ9Jsdx2azB6BHgOQc'
 
         }
         else if (isSignupScreen && (password !== confirmPasswordRef.current.value)) {
@@ -84,7 +84,7 @@ const AuthPage = () => {
             return;
         }
         else {
-            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBVAE7aUSl9yyrZqGn-MO-JWRkJvemcR3g'
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA2aEc-PCnPRnGxUhQ9Jsdx2azB6BHgOQc'
 
         }
 

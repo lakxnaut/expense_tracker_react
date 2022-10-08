@@ -1,6 +1,7 @@
 import React from 'react'
 import classes from './Home.module.css'
 import { NavLink, useNavigate } from 'react-router-dom'
+import AddForm from './AddForm'
 
 const Home = () => {
     const navigate = useNavigate()
@@ -24,6 +25,7 @@ const Home = () => {
                     <button onClick={logOutHandler}>Logout</button>
                 </div>
             </div>
+            <AddForm />
         </div>
     )
 }

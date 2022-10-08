@@ -19,7 +19,7 @@ const Profile = () => {
 
 
     async function getProfiledata() {
-        const url = 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBVAE7aUSl9yyrZqGn-MO-JWRkJvemcR3g'
+        const url = 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyA2aEc-PCnPRnGxUhQ9Jsdx2azB6BHgOQc'
 
         const resp = await fetch(url, {
             method: 'POST',
@@ -51,7 +51,7 @@ const Profile = () => {
 
         if (name && profile) {
 
-            const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBVAE7aUSl9yyrZqGn-MO-JWRkJvemcR3g', {
+            const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyA2aEc-PCnPRnGxUhQ9Jsdx2azB6BHgOQc', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
