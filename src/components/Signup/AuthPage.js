@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import classes from './AuthPage.module.css'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 
 const AuthPage = () => {
@@ -12,10 +12,12 @@ const AuthPage = () => {
     const [error, setError] = useState('');
     const [errorClass, setErrorClass] = useState('');
     const [isconfirmEmailScreen, setIsConfirmEmailScreen] = useState(false)
+    const [spinner, setSpinner] = useState(false);
 
     const navigate = useNavigate();
 
     async function saveToken(data) {
+        setSpinner(true)
         const resp = await data.json()
         const token = resp.idToken;
 
@@ -28,6 +30,7 @@ const AuthPage = () => {
     }
 
     async function confirmEmail() {
+
         const myurl = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBVAE7aUSl9yyrZqGn-MO-JWRkJvemcR3g'
         const resp = await fetch(myurl, {
             method: 'POST',
@@ -48,6 +51,7 @@ const AuthPage = () => {
         else {
 
         }
+        setSpinner(false)
 
 
 
@@ -83,11 +87,6 @@ const AuthPage = () => {
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBVAE7aUSl9yyrZqGn-MO-JWRkJvemcR3g'
 
         }
-
-
-
-
-
 
 
 
@@ -146,7 +145,16 @@ const AuthPage = () => {
                         <button className={classes.signupButton}>{isSignupScreen ? 'Sign Up' : "Login"}</button>
                     </div>
 
+                    <div className={classes.forgetButtonContainer}>
+                        <button onClick={() => {
+                            navigate('/forgot-password')
+                        }} className={classes.forgetButton}>Forget Password?</button>
+                    </div>
+
                     <p style={{ color: 'red', fontWeight: 'bold', textAlign: 'center' }}> {error}</p>
+
+
+
 
 
 
@@ -156,7 +164,10 @@ const AuthPage = () => {
 
 
 
+
             <button onClick={toggleSignup} className={classes.loginButton}>{isSignupScreen ? 'Have an Account? Login' : 'Dont have an Acoount? Sign up'}</button>
+            {spinner && <div className={classes.loader}></div>}
+
 
 
 

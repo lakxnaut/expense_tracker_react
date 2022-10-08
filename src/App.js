@@ -4,6 +4,7 @@ import Home from './components/Home/Home'
 import Profile from './components/Profile/Profile'
 import AuthPage from './components/Signup/AuthPage'
 import ConfirmEmail from './components/Signup/ConfirmEmail'
+import ForgetPassword from './components/Signup/ForgetPassword'
 
 
 const App = () => {
@@ -15,8 +16,8 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/auth' element={<AuthPage />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/confirm' element={<ConfirmEmail />}></Route>
-
+          <Route path='/confirm' element={<ConfirmEmail />} />
+          <Route path='/forgot-password' element={<ForgetPassword />} />
         </Routes>
 
       </BrowserRouter>
