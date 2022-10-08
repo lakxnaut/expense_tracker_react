@@ -11,6 +11,7 @@ const AuthPage = () => {
     const [isSignupScreen, setIsSignupScreen] = useState(true);
     const [error, setError] = useState('');
     const [errorClass, setErrorClass] = useState('');
+    const [isconfirmEmailScreen, setIsConfirmEmailScreen] = useState(false)
 
     const navigate = useNavigate();
 
@@ -18,11 +19,41 @@ const AuthPage = () => {
         const resp = await data.json()
         const token = resp.idToken;
 
-        console.log(token);
         localStorage.setItem('token', token)
-        console.log(token);
+        confirmEmail()
 
-        navigate('/')
+
+        // navigate('/confirm')
+
+    }
+
+    async function confirmEmail() {
+        const myurl = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBVAE7aUSl9yyrZqGn-MO-JWRkJvemcR3g'
+        const resp = await fetch(myurl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                requestType: "VERIFY_EMAIL",
+                idToken: localStorage.getItem('token')
+            })
+        })
+
+        if (resp.ok) {
+            const data = await resp.json();
+            console.log(data);
+            setError("DONE")
+        }
+        else {
+
+        }
+
+
+
+
+        // navigate('/')
+
     }
 
 
@@ -38,7 +69,6 @@ const AuthPage = () => {
 
         const email = emailRef.current.value
         const password = passwordRef.current.value
-        // const confirmPassword = confirmPasswordRef.current.value
         let url;
         if (isSignupScreen && (password === confirmPasswordRef.current.value)) {
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBVAE7aUSl9yyrZqGn-MO-JWRkJvemcR3g'
