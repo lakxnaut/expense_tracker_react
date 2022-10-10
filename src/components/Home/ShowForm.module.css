@@ -1,0 +1,10 @@
+.ShowForm {
+  margin-top: 30px;
+}
+
+.ShowFormContainer {
+  margin-top: 10px;
+  display: flex;
+  gap: 30px;
+  justify-content: space-around;
+}
