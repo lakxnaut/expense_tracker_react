@@ -21,27 +21,10 @@ const AddForm = (props) => {
 
 
         if (resp.status === 200) {
-            const resp = await axios(url)
-            const data = resp.data;
-            // console.log(data);
-
-            // const map = data.map(item => item)
-            // console.log(map);
-            const formData = []
-
-            for (let item in data) {
-                // console.log(data[item].data.expenseCategory);
-
-                formData.push({
-                    expenseTitle: data[item].data.expenseTitle,
-                    expensePrice: data[item].data.expensePrice,
-                    expenseCategory: data[item].data.expenseCategory,
-
-                })
 
 
-            }
-            props.onshowData(formData)
+
+            props.onshowData()
 
         }
 
@@ -51,7 +34,11 @@ const AddForm = (props) => {
 
     useEffect(() => { },)
 
+    console.log(props.isEdit);
 
+    function onEditButtonHandler() {
+        props.onEdit(false)
+    }
     return (
         <div className={classes.AddForm}>
 
@@ -69,7 +56,9 @@ const AddForm = (props) => {
                     <input ref={priceRef} type='number' placeholder='Enter Price' />
                 </div>
                 <div>
-                    <button>Add Expense</button>
+                    {props.isEdit ? (<button onClick={onEditButtonHandler}> Edit Expense</button>) : (<button type='submit'> Add Expense</button>)}
+
+
                 </div>
             </form>
 

@@ -4,39 +4,21 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import AddForm from './AddForm'
 import ShowForm from './ShowForm'
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { expenseAction } from '../store/expenses'
 
 const Home = () => {
+    const expenseData = useSelector(state => state.expense.expensedata)
+    const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [data, setData] = useState([])
+    // const [data, setData] = useState([])
+    const [isEdit, setIsEdit] = useState(false);
 
+    // useEffect(() => {
+    //     showDataHandler()
+    //     console.log('hello');
 
-
-    async function allData() {
-        const url = 'https://expense-tracker-react-47a12-default-rtdb.firebaseio.com/expenses.json'
-        const resp = await axios(url)
-        const data = resp.data;
-
-        const formData = []
-
-        for (let item in data) {
-
-            formData.push({
-                expenseTitle: data[item].data.expenseTitle,
-                expensePrice: data[item].data.expensePrice,
-                expenseCategory: data[item].data.expenseCategory,
-
-            })
-
-            setData(formData)
-        }
-    }
-
-    useEffect(() => {
-        allData()
-        console.log('hello');
-
-
-    }, [])
+    // }, [expenseData])
 
 
 
@@ -48,9 +30,39 @@ const Home = () => {
 
     }
 
-    function showDataHandler(data) {
-        setData(data)
+    async function showDataHandler() {
+        console.log('hello');
+        const formData = []
+        const url = 'https://expense-tracker-react-47a12-default-rtdb.firebaseio.com/expenses.json'
 
+        const resp = await axios(url)
+        const data = resp.data;
+
+
+        for (let item in data) {
+            // console.log(data[item].data.expenseCategory);s
+
+
+            formData.push({
+                expenseId: item,
+                expenseTitle: data[item].data.expenseTitle,
+                expensePrice: data[item].data.expensePrice,
+                expenseCategory: data[item].data.expenseCategory,
+
+            })
+
+
+        }
+        dispatch(expenseAction.expensedata(formData))
+        // setData(formData)
+
+
+    }
+    function isEditHandler(iseditable) {
+        setIsEdit(iseditable)
+
+    }
+    function editValuesHandler(id, title, price, categoty) {
 
     }
     return (
@@ -67,8 +79,8 @@ const Home = () => {
                     <button onClick={logOutHandler}>Logout</button>
                 </div>
             </div>
-            <AddForm onshowData={showDataHandler} />
-            <ShowForm showData={data} />
+            <AddForm onEdit={isEditHandler} isEdit={isEdit} onshowData={showDataHandler} />
+            <ShowForm editValues={editValuesHandler} onEdit={isEditHandler} onshowData={showDataHandler} />
         </div>
     )
 }

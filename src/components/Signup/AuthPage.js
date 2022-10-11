@@ -1,17 +1,20 @@
 import React, { useRef, useState } from 'react'
 import classes from './AuthPage.module.css'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { authActions } from '../store/auth'
 
 
 const AuthPage = () => {
-
+    const dispatch = useDispatch()
+    const reduxtoken = useSelector(state => state.Myauth.token)
     const emailRef = useRef()
     const passwordRef = useRef()
     const confirmPasswordRef = useRef();
     const [isSignupScreen, setIsSignupScreen] = useState(true);
     const [error, setError] = useState('');
     const [errorClass, setErrorClass] = useState('');
-    const [isconfirmEmailScreen, setIsConfirmEmailScreen] = useState(false)
+    // const [isconfirmEmailScreen, setIsConfirmEmailScreen] = useState(false)
     const [spinner, setSpinner] = useState(false);
 
     const navigate = useNavigate();
@@ -21,11 +24,20 @@ const AuthPage = () => {
         const resp = await data.json()
         const token = resp.idToken;
 
+
         localStorage.setItem('token', token)
-        confirmEmail()
+        // confirmEmail()
 
 
         // navigate('/confirm')
+        dispatch(authActions.login(token))
+
+
+        // setTimeout(() => {
+        //     console.log(reduxtoken);
+
+        // }, 1000)
+
 
     }
 
@@ -45,7 +57,6 @@ const AuthPage = () => {
 
         if (resp.ok) {
             const data = await resp.json();
-            console.log(data);
             setError("DONE")
         }
         else {
