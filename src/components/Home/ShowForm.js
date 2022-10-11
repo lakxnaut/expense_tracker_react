@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import classes from './ShowForm.module.css'
 import axios from 'axios';
+import { useSelector } from 'react-redux'
 
 
 const ShowForm = (props) => {
+    const expenseData = useSelector(state => state.expense.expensedata)
     const { showData } = props
+
     // console.log(showData);
 
     // const [formdata, setFormData] = useState([])
@@ -23,9 +26,41 @@ const ShowForm = (props) => {
 
 
     // }, [formdata])
+
+    async function onEditHandler(id, title, price, categoty) {
+        props.onEdit(true)
+
+        props.editValues(id, title, price, categoty)
+
+        // const url = `https://expense-tracker-react-47a12-default-rtdb.firebaseio.com/expenses/${id}.json`
+        // const resp = await axios.put(url)
+        // const data = resp.data;
+
+
+        // props.onshowData()
+
+    }
+    async function onRemoveHandler(id) {
+
+
+
+
+
+
+
+        // const url = `https://expense-tracker-react-47a12-default-rtdb.firebaseio.com/expenses/${id}.json`
+
+        // const resp = await axios.delete(url)
+        // const data = resp.data;
+        // console.log(data);
+
+        // props.onshowData()
+
+
+    }
     return (
         <div className={classes.ShowForm}>
-            {showData.map(item => {
+            {expenseData.map(item => {
 
 
 
@@ -34,6 +69,12 @@ const ShowForm = (props) => {
                     <div>{item.expenseTitle}</div>
                     <div>{item.expensePrice}</div>
                     <div>{item.expenseCategory}</div>
+                    <div className={classes.buttons}>
+                        <div><button onClick={() => onEditHandler(item.expenseId, item.expenseTitle, item.expensePrice, item.expenseCategory)}>Edit</button></div>
+
+                        <div><button onClick={() => onRemoveHandler(item.expenseId)}>Remove</button></div>
+
+                    </div>
                 </div>)
 
             })}
