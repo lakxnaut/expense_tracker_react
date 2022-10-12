@@ -15,3 +15,38 @@
 .link {
   color: blue;
 }
+.premiumButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+.premiumButton {
+  font-size: 20px;
+  background-color: red;
+  border: none;
+  padding: 10px 18px;
+  font-weight: bold;
+  border-radius: 12px;
+
+  color: white;
+}
+
+.darkTheme {
+  background: rgb(25, 8, 8);
+}
+
+.downloadButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.downloadButton {
+  font-size: 20px;
+  background-color: rgb(124, 255, 63);
+  border: none;
+  padding: 10px 18px;
+  font-weight: bold;
+  border-radius: 12px;
+
+  color: white;
+}

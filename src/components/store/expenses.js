@@ -10,18 +10,24 @@ const expenseSlice = createSlice({
         expensedata(state, action) {
             state.expensedata = action.payload
 
-            console.log(state.expensedata);
+            console.log(state.expensedata[0].expensePrice);
+
+            state.expensedata.reduce((acc, curr) => {
+                return state.total = acc + curr.expensePrice
+            }, 0)
+
+            console.log(state.total);
 
 
 
-            // const mapp = state.expensedata.map(item => item);
-            // console.log(mapp);
+
         },
 
 
 
         total(state, action) {
-            state.total = action.payload
+            state.total = state.total + action.payload
+            console.log(state.total);
         }
     }
 })

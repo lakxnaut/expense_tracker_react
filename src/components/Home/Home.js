@@ -6,20 +6,44 @@ import ShowForm from './ShowForm'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { expenseAction } from '../store/expenses'
+import { themeActions } from '../store/theme'
+import { CSVLink } from 'react-csv'
+
 
 const Home = () => {
+
     const expenseData = useSelector(state => state.expense.expensedata)
+    const total = useSelector(state => state.expense.total)
+    const isDarkTheme = useSelector(state => state.theme.darkTheme)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     // const [data, setData] = useState([])
     const [isEdit, setIsEdit] = useState(false);
 
-    // useEffect(() => {
-    //     showDataHandler()
-    //     console.log('hello');
 
-    // }, [expenseData])
+    useEffect(() => {
+        showDataHandler()
+        console.log('hello');
 
+    }, [])
+    console.log(expenseData);
+
+    const headers = [
+        {
+            label: "Title", key: "expenseTitle"
+        },
+        {
+            label: "Price", key: "expensePrice"
+        },
+        {
+            label: "Category", key: "expenseCategory"
+        }
+    ]
+    const csvLink = {
+        headers: headers,
+        data: expenseData,
+        filename: "csvfile.csv"
+    }
 
 
 
@@ -40,19 +64,21 @@ const Home = () => {
 
 
         for (let item in data) {
-            // console.log(data[item].data.expenseCategory);s
+            // console.log(data[item].data.expenseCategory);
 
 
             formData.push({
                 expenseId: item,
                 expenseTitle: data[item].data.expenseTitle,
-                expensePrice: data[item].data.expensePrice,
+                expensePrice: Number(data[item].data.expensePrice),
                 expenseCategory: data[item].data.expenseCategory,
 
             })
 
 
         }
+
+        console.log(typeof formData[0].expensePrice);
         dispatch(expenseAction.expensedata(formData))
         // setData(formData)
 
@@ -65,8 +91,21 @@ const Home = () => {
     function editValuesHandler(id, title, price, categoty) {
 
     }
+
+    function premiumHandler() {
+        dispatch(themeActions.theme())
+    }
+
+    // const themeClass = isDarkTheme ? ${classes.darkTheme} :
+    // console.log(themeClass)
+
+    const themeclass = isDarkTheme ? `${classes.darkTheme}` : '';
+    console.log(themeclass);
+
     return (
-        <div className={classes.home}>
+
+
+        <div className={`${classes.home} ${themeclass}`}>
             <div className={classes.header}>
                 <p>Welcome to Expense Tracker</p>
                 <div className={classes.profileclickContainer}>
@@ -79,7 +118,12 @@ const Home = () => {
                     <button onClick={logOutHandler}>Logout</button>
                 </div>
             </div>
+
             <AddForm onEdit={isEditHandler} isEdit={isEdit} onshowData={showDataHandler} />
+            {total > 10000 ? (<div className={classes.premiumButtonContainer}>
+                <button onClick={premiumHandler} className={classes.premiumButton}>Activate Premium</button>
+            </div>) : ''}
+            <div className={classes.downloadButtonContainer}><button className={classes.downloadButton}><CSVLink {...csvLink}>Export to CSV</CSVLink></button></div>
             <ShowForm editValues={editValuesHandler} onEdit={isEditHandler} onshowData={showDataHandler} />
         </div>
     )
