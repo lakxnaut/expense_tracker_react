@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import classes from './ShowForm.module.css'
 import axios from 'axios';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { expenseAction } from '../store/expenses';
 
 
 const ShowForm = (props) => {
+    const dispatch = useDispatch()
     const expenseData = useSelector(state => state.expense.expensedata)
     const { showData } = props
 
@@ -61,6 +63,8 @@ const ShowForm = (props) => {
     return (
         <div className={classes.ShowForm}>
             {expenseData.map(item => {
+
+
 
 
 

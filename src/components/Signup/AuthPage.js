@@ -142,6 +142,7 @@ const AuthPage = () => {
 
     }
     return (
+
         <div className={classes.signup}>
             <form className={`${classes.form} ${errorClass} `} onSubmit={submitForm}>
                 <h1>{isSignupScreen ? 'SignUp' : 'Login '}</h1>
