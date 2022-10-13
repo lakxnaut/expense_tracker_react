@@ -1,14 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useRef } from 'react'
 import classes from './AddForm.module.css'
+import { useSelector, useDispatch } from 'react-redux';
 
 const AddForm = (props) => {
+
+    const isEditable = useSelector(state => state.expense.isEditable)
+
+
     const titleRef = useRef();
     const categoryRef = useRef();
     const priceRef = useRef();
     async function submitHandler(e) {
         e.preventDefault();
-        const url = 'https://expense-tracker-react-47a12-default-rtdb.firebaseio.com/expenses.json'
+        const url = 'https://expense-tracker-react-47a12-default-rtdb.firebaseio.com/newexpenses.json'
 
         const resp = await axios.post(url, {
             data: {
