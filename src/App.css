@@ -1,0 +1,14 @@
+.darkTheme {
+  background: rgb(229, 47, 47);
+  transition: background-color 2s ease;
+  height: 100vh;
+}
+
+.theme {
+  background: rgb(255, 255, 255);
+  transition: background-color 2s ease;
+  height: 100vh;
+}
+body {
+  margin: 0;
+}

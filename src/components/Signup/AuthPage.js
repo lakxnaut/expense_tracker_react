@@ -37,6 +37,9 @@ const AuthPage = () => {
         //     console.log(reduxtoken);
 
         // }, 1000)
+        setSpinner(false)
+        navigate('/')
+
 
 
     }
@@ -120,7 +123,9 @@ const AuthPage = () => {
         })
 
         if (response.ok) {
+            console.log('hello');
             saveToken(response)
+
 
         }
         else {
@@ -154,7 +159,7 @@ const AuthPage = () => {
 
                     {isSignupScreen && <input type='password' minLength='6' ref={confirmPasswordRef} placeholder='Confirm Email' required />}
                     <div className={classes.signupContainer}>
-                        <button className={classes.signupButton}>{isSignupScreen ? 'Sign Up' : "Login"}</button>
+                        <button type='submit' className={classes.signupButton}>{isSignupScreen ? 'Sign Up' : "Login"}</button>
                     </div>
 
                     <div className={classes.forgetButtonContainer}>

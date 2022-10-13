@@ -42,7 +42,7 @@ const Home = () => {
     const csvLink = {
         headers: headers,
         data: expenseData,
-        filename: "csvfile.csv"
+        filename: "ExpenseData.csv"
     }
 
 
@@ -56,39 +56,54 @@ const Home = () => {
 
     async function showDataHandler() {
         console.log('hello');
-        const formData = []
-        const url = 'https://expense-tracker-react-47a12-default-rtdb.firebaseio.com/expenses.json'
 
-        const resp = await axios(url)
-        const data = resp.data;
+        try {
+            const formData = []
+            const url = 'https://expense-tracker-react-47a12-default-rtdb.firebaseio.com/newexpenses.json'
 
-
-        for (let item in data) {
-            // console.log(data[item].data.expenseCategory);
+            const resp = await axios(url)
+            const data = resp.data;
 
 
-            formData.push({
-                expenseId: item,
-                expenseTitle: data[item].data.expenseTitle,
-                expensePrice: Number(data[item].data.expensePrice),
-                expenseCategory: data[item].data.expenseCategory,
+            for (let item in data) {
+                console.log(data[item].data.expenseCategory);
 
-            })
 
+                formData.push({
+                    expenseId: item,
+                    expenseTitle: data[item].data.expenseTitle,
+                    expensePrice: Number(data[item].data.expensePrice),
+                    expenseCategory: data[item].data.expenseCategory,
+
+                })
+
+
+            }
+
+            console.log(typeof formData[0].expensePrice);
+            dispatch(expenseAction.expensedata(formData))
+            // setData(formData)
 
         }
 
-        console.log(typeof formData[0].expensePrice);
-        dispatch(expenseAction.expensedata(formData))
-        // setData(formData)
+        catch (error) {
+            console.log(error);
+        }
+
 
 
     }
     function isEditHandler(iseditable) {
-        setIsEdit(iseditable)
+        dispatch(expenseAction.editable(true))
+
+
 
     }
     function editValuesHandler(id, title, price, categoty) {
+        dispatch(expenseAction.editData({
+            title, id, price, categoty
+        }))
+
 
     }
 
@@ -99,13 +114,13 @@ const Home = () => {
     // const themeClass = isDarkTheme ? ${classes.darkTheme} :
     // console.log(themeClass)
 
-    const themeclass = isDarkTheme ? `${classes.darkTheme}` : '';
-    console.log(themeclass);
+    // const themeclass = isDarkTheme ? `${classes.darkTheme}` : '';
+    // console.log(themeclass);
 
     return (
 
 
-        <div className={`${classes.home} ${themeclass}`}>
+        <div className={`${classes.home}`}>
             <div className={classes.header}>
                 <p>Welcome to Expense Tracker</p>
                 <div className={classes.profileclickContainer}>
