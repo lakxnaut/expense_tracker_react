@@ -7,6 +7,7 @@ import ConfirmEmail from './components/Signup/ConfirmEmail'
 import ForgetPassword from './components/Signup/ForgetPassword'
 import './App.css'
 import { useSelector } from 'react-redux'
+import EditForm from './components/Home/EditForm'
 
 
 
@@ -19,6 +20,8 @@ const App = () => {
 
   return (
     <div className={darkClass}>
+      <EditForm />
+
       <BrowserRouter>
 
         <Routes>

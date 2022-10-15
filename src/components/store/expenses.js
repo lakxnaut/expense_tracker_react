@@ -39,10 +39,14 @@ const expenseSlice = createSlice({
 
         },
         editingDatas(state, action) {
-            state.editData.id = action.payload.id;
-            state.editData.title = action.payload.title;
-            state.editData.price = action.payload.price
-            state.editData.category = action.payload.category
+            state.editData.push({
+                id: action.payload.id,
+                title: action.payload.title,
+                price: action.payload.price,
+                category: action.payload.category,
+
+            })
+
 
         }
     }

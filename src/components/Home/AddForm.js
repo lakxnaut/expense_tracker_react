@@ -61,7 +61,7 @@ const AddForm = (props) => {
                     <input ref={priceRef} type='number' placeholder='Enter Price' />
                 </div>
                 <div>
-                    {props.isEdit ? (<button onClick={onEditButtonHandler}> Edit Expense</button>) : (<button type='submit'> Add Expense</button>)}
+                    <button type='submit'> Add Expense</button>
 
 
                 </div>

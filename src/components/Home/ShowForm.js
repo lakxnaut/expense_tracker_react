@@ -7,6 +7,7 @@ import { expenseAction } from '../store/expenses';
 
 
 const ShowForm = (props) => {
+    const [title, setTitle] = useState(null)
     const titleRef = useRef();
     const categoryRef = useRef();
     const priceRef = useRef();
@@ -34,9 +35,16 @@ const ShowForm = (props) => {
 
     // }, [formdata])
 
-    async function onEditHandler(id, title, price, categoty) {
-        setIsEdit(true)
+    async function onEditHandler(item) {
+        console.log(item);
+        // setIsEdit(true)
         // props.onEdit(true)
+        dispatch(expenseAction.editingDatas({
+            id: item.expenseId,
+            title: item.expenseTitle,
+            category: item.expenseCategory,
+            price: item.expensePrice
+        }))
 
         // // props.editValues(id, title, price, categoty)
         // dispatch(expenseAction.expensedata(id, title, price, categoty))
@@ -82,28 +90,38 @@ const ShowForm = (props) => {
 
     function crossbuttonhandler() {
         setIsEdit(false)
+        console.log(isedit);
 
     }
+
+    function titleHandler(e) {
+        setTitle(e.target.value)
+        console.log("title");
+
+    }
+
     return (
         <div className={classes.ShowForm}>
-            {expenseData.map(item => {
+            {expenseData.map((item) => {
 
-                return (<div className={classes.ShowFormContainer}>
-                    <div>{isedit ? (<input type='text' value={item.expenseTitle} />) : (item.expenseTitle)} </div>
-                    <div>{isedit ? (<input type='text' value={item.expensePrice} />) : (item.expensePrice)} </div>
-                    <div>{isedit ? (<input type='text' value={item.expenseCategory} />) : (item.expenseCategory)} </div>
+
+
+                return <div className={classes.ShowFormContainer}>
+                    <div> {item.expenseTitle} </div>
+                    <div>{item.expensePrice} </div>
+                    <div>{item.expenseCategory} </div>
                     <div className={classes.buttons}>
 
-                        {isedit ? (<div className={classes.buttons}><div><button onClick={() => EditingFormHandler(item.expenseId)}>done</button></div> <div><button onClick={() => crossbuttonhandler}>x</button></div></div>) : (<div className={classes.buttons}>
-                            <div><button onClick={() => onEditHandler(item.expenseId, item.expenseTitle, item.expensePrice, item.expenseCategory)}>Edit</button></div>
+                        <div className={classes.buttons}>
+                            <div><button onClick={() => onEditHandler(item)}>Edit</button></div>
 
                             <div><button onClick={() => onRemoveHandler(item.expenseId)}>Remove</button></div>
-                        </div>)}
+                        </div>
 
 
 
                     </div>
-                </div>)
+                </div>
 
             })}
 
