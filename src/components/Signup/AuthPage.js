@@ -20,6 +20,7 @@ const AuthPage = () => {
     const navigate = useNavigate();
 
     async function saveToken(data) {
+        console.log('hello');
         setSpinner(true)
         const resp = await data.json()
         const token = resp.idToken;
@@ -29,14 +30,10 @@ const AuthPage = () => {
         // confirmEmail()
 
 
-        // navigate('/confirm')
         dispatch(authActions.login(token))
 
 
-        // setTimeout(() => {
-        //     console.log(reduxtoken);
 
-        // }, 1000)
         setSpinner(false)
         navigate('/')
 
@@ -70,7 +67,7 @@ const AuthPage = () => {
 
 
 
-        // navigate('/')
+        navigate('/')
 
     }
 
@@ -126,16 +123,11 @@ const AuthPage = () => {
             console.log('hello');
             saveToken(response)
 
-
         }
         else {
             const data = await response.json()
             setError(data.error.message);
         }
-
-
-
-
 
 
     }

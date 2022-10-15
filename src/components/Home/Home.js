@@ -80,7 +80,7 @@ const Home = () => {
 
             }
 
-            console.log(typeof formData[0].expensePrice);
+            // console.log(typeof formData[0].expensePrice);
             dispatch(expenseAction.expensedata(formData))
             // setData(formData)
 

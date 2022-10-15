@@ -1,10 +1,18 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Modal from '../UI/Modal'
 import classes from './AddForm.module.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { expenseAction } from '../store/expenses'
 
-const EditForm = () => {
+const EditForm = (props) => {
+    // useEffect(()=>{
+
+    // },[])
     const editData = useSelector(state => state.expense.editData)
+    const dispatch = useDispatch()
+
+    // console.log(editData);
+    const [isError, setIsError] = useState(false)
     const titleRef = useRef();
     const categoryRef = useRef();
     const priceRef = useRef();
@@ -13,29 +21,45 @@ const EditForm = () => {
     const price = editData[0].price
     const id = editData[0].id
 
+    console.log(id);
+
     async function onSubmitHandler(e) {
         e.preventDefault();
-        let url = `https://expense-tracker-react-47a12-default-rtdb.firebaseio.com/newexpenses/${id}.json`
+        let url = `https://expense-tracker-react-47a12-default-rtdb.firebaseio.com/newexpenses/${id}/data.json`
 
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                data: {
-                    expenseCategory: categoryRef,
-                    expensePrice: priceRef,
-                    expenseTitle: titleRef
+        try {
 
-                }
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+
+                    expenseCategory: categoryRef.current.value,
+                    expensePrice: priceRef.current.value,
+                    expenseTitle: titleRef.current.value
+
+
+                })
             })
-        })
+            const data = await response.json();
+            console.log(data);
+            props.onshowData()
+            cancelButtonHandler()
 
-        const data = response.json();
-        console.log(data);
+        }
 
+        catch (e) {
+            console.log(e);
+            setIsError(true)
+        }
 
+    }
+
+    function cancelButtonHandler() {
+
+        dispatch(expenseAction.editable(false))
 
 
     }
@@ -57,10 +81,13 @@ const EditForm = () => {
                     </div>
                     <div>
                         <button type='submit'> Edit</button>
+                        <button type='button' onClick={cancelButtonHandler}> Cancel</button>
 
 
                     </div>
+
                 </form>
+                {isError && <p style={{ textAlign: 'center', color: 'red', fontSize: '20px' }}> Error Please Try again!!!</p>}
             </div>
         </Modal>
     )

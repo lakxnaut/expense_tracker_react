@@ -39,6 +39,7 @@ const ShowForm = (props) => {
         console.log(item);
         // setIsEdit(true)
         // props.onEdit(true)
+        dispatch(expenseAction.editable(true))
         dispatch(expenseAction.editingDatas({
             id: item.expenseId,
             title: item.expenseTitle,
